@@ -1,12 +1,32 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {},
+    "parameters": {
+        "storageAccountName": {
+            "type": "string",
+            "metadata": {
+                "description": "ep3 Sam Cogan"
+            }
+        },
+        "storageAccountType": {
+            "type": "string",
+            "metadata": {
+                "description": "Type of storage account"
+            },
+            "allowedValues": [
+                "Standard_LRS",
+                "Standard_GRS",
+                "Standard_ZRS",
+                "Premium_LRS"
+            ],
+            "defaultValue": "Standard_LRS"
+        }
+    },
     "functions": [],
     "variables": {},
     "resources": [
         {
-            "name": "samcoganStogage",
+            "name": "[parameters('storageAccountName')]",
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2015-06-15",
             "location": "[resourceGroup().location]",
@@ -14,7 +34,7 @@
                 "displayName": "samcoganStogage"
             },
             "properties": {
-                "accountType": "Standard_LRS"
+                "accountType": "[parameters('storageAccountType')]"
             }
         }
     ],
